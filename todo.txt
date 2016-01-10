@@ -1,0 +1,180 @@
+-*- mode: outline; -*-
+
+* Overall
+
+** Move into monkeylib
+
+** Cycle detection
+
+** Add rules dynamically [DONE]
+
+Provide a way to augment rules on the fly. Which means recompiling the
+matcher or moving to a more interpreted data structure.
+
+** Expiring topics
+
+Set the topic in one response and if it isn't renewed, it goes back to
+nil after a certain number of interactions. Thus rules that stay
+within the topic can keep setting it. So maybe, as long as the rules
+that match match the topic, then it stays set. But after a certain
+number of general rules matching, the topic expires.
+
+** More flexible tokenization
+
+For gigabot, need to be able to recognize certain bits of punctuation. But it's hairy.
+
+** Change rule format
+
+Probably should store rules pre tokenized as it would save parsing
+during compilation and would probably be easier to write. (Though
+there might be some package issues.)
+
+** Write a brain compiler that generates javascript so a standalone web page can contain a bot.
+
+** Contraction handling.
+
+Currently contractions are handled by compiling contractions that
+appear in patterns into a matcher that will match the contraction and
+also possible expansions of the contraction. Which means that certain
+nonsensical strings will match. For instance, "I'd have done it" will
+match "I would have done it" as you'd hope but also "I had have done
+it". This probably doesn't matter a lot but it's a bit gross. Another
+approach would be to put the smarts on the input side: Write the
+patterns with no contractions and then when a contraction is found in
+the input try the expansion. In the case, like above, where there is
+more than one, then try them both and take whichever one gets a better
+match. However that depends on having some notion of a "better" match.
+
+* Pattern side
+
+** Special matching rules
+
+Some of these could be compile-time rules. Others have to be dynamic.
+
+*** Function for checking whether a string is a nick.
+
+*** NAME -- the bots name.
+
+*** COMMON-LISP-SYMBOL, COMMON-LISP-FUNCTION, etc.
+
+* Template side
+
+** More flexible tests in conditional constructs [DONE]
+
+** Get rid of GET -- let symbols be treated as variables.
+
+** OR construct that allows (or (process (star)) "something else")
+
+** LET construct to silently make variables for the duration of the template processing.
+
+** RAW construct for getting the actual string match.
+
+Two parts. Simple one is getting the whole original input before any
+normalization. For that we should be able to just save it and access
+it in the template function.
+
+Tricker is returning the text that corresponds to a star match. If the
+pattern was 'FOO * BAR' and the input was "Foo, isn't it great! Bar"
+then we probably want the star to represent "isn't it great!"
+
+Hmmm. Maybe we could normalize punctuation into symbols which are
+sort of transparent to matching so the matchers would skip over the
+symbols in the input but they'd still be there. And if they were
+included in a pattern they could be matched. So "FOO BAR" would match
+"foo, bar" and "foo bar" but "FOO COMMA BAR" would match "foo, bar"
+but not "foo bar". That would allow punctuation sensitive patterns
+without requiring that they all be. So we'd have, for instance:
+
+  (defun make-special-token-matcher (token continuation)
+    "For explicitly matching special punctuation tokens."
+    (lambda (input)
+      (when (string-equal token (first input))
+	(funcall continuation (rest input)))))
+
+  (defun make-token-matcher (token continuation)
+    "For matching normal tokens, skippping special tokens."
+    (lambda (input)
+      ;; Skip any special tokens.
+      (setf input (member-if #'normal-token-p input))
+      (when (string-equal token (first input))
+	(funcall continuation (rest input)))))
+
+If we do that for white space (maybe turning each run of whitespace
+into a single token) too, and make case preserving tokens, then we can
+go back from tokens to text as it was entered. This leaves the issue
+of contractions. If we treat apostrophes as parts of words then we
+have input tokens like :|isn't| but we want to write patterns that
+will match either :|isn't| or (:|is| :|not|). If we define the
+patterns with contractions then we can recognize them and generate a
+special matcher that matches either the token (e.g. |isn't| or the
+sequence of the expansion (|is| |not|). A similar mechanism could be
+used to allow pattern level synonyms. Just as the pattern compiler
+knows that |isn't| in a pattern should be compiled into a matcher for
+|isn't| or (|is| |not|), it could know that say |the| should match
+both |the| and |teh|. (But a pattern written with |teh| would not
+match |the| unless the reverse synonym was defined.)
+
+http://www.hackerfoo.com/ => |http| |:| |/| |/| |www| |.| |hackerfoo|
+|.| |com| |/| with only (|http| |www| |hackerfoo| |com|) as normal
+tokens.
+
+With this scheme maybe the default behavior of STAR is to return the
+sequence of tokens matched with all special tokens included except
+triming any that appear at the end of the sequence separated from the
+first or last regular token by whitespace. So "Foo, isn't it great!
+bar." matched against the pattern "foo * bar" would strip the |,| and
+whitespace token preceeding the |isn't| and the whitespace following
+the |!| (which would be kept because it is directly after the regular
+token |great|. Conceivably there would be some use to having an option
+to STAR to not trim those special tokens.
+
+In this scheme, sentence splitting is done by finding |.|, |!|, and
+|?| symbols followed by a whitespace token or the end of the input.
+The punctuation can be left with the sentence for processing since the
+matchers will ignore it unless the pattern explicitly mentions it.
+(The end matcher will also have to be taught to ignore the special
+tokens.)
+
+** Variables should be Lisp values, not necessarily strings.
+
+* Gigabot brain
+
+** Some rules with pronoun referents [DONE]
+
+Who is John McCarthy? He invented lisp. Is he still alive? Yes.
+
+** Smarter about stuff it doesn't know.
+
+"Tell me about foo bar baz." => "Sorry, I don't seem to know anything
+about 'foo bar baz'. But your question has been saved and my botmaster
+may teach me what to say about that."
+
+** Maybe use topics better
+
+There are a few kinds of questions: who, what, when, where, how, and
+why. Perhaps those should be topics so we can have basic facts tied to
+a topic, e.g. ("JOHN MCCARTHY" :topic "WHO" :template "...") and then
+pattern questions that set the topic appropriately and the process the
+basic value. e.g. ("WHO IS *" :template ((set-topic "WHO") (process (star))))
+
+Or maybe that could just be done by convention ("WHO JOHN MCCARTHY"
+:template "...") instead of a topic thing. However the topic has the
+advantage that synonyms might be easier since you could get "WHO IS
+MCCARTHY" and turn it into "MCCARTHY" with a topic "WHO" and then have
+another rule that turns "MCCARTHY" into "JOHN MCCARTHY".
+
+* IRC
+
+** More sophisticated multi-conversation capabilities.
+
+*** Timeout on in-exchange-p
+
+** Connection robustness.
+
+*** Provide password.
+
+*** Notice disconnects and reconnect
+
+*** Be smart about using a different nick a ghosting if necessary.
+
+** Memo capability

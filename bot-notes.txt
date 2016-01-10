@@ -1,0 +1,14 @@
+-*- mode: outline; -*-
+
+* Observations about AAA A.I.M.L. set.
+
+- Basically no use of Topics outside of Wordplay.aiml (anagram game) and Blackjack.aiml.
+
+- Lots of <set name="topic">...</set> but the values are never, it seems, used.
+
+- Occasional use of <thatstar>; very ocassionally with index other than 1
+
+- Only two instances of <topicstar> which probably should be <thatstar>'s anyway.
+
+- Lots of rules with <that>
+

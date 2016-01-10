@@ -1,0 +1,142 @@
+;;; Templates -- Each rule contains a template which is used to
+;;; produce the Bot's responses when the pattern matches. Templates
+;;; are made up of literal text and some operators.
+
+;;; AIML template operators:
+
+;;; Atomic operators (Section 7.1)
+
+;;; (star &optional index) => the user input matched by the given star in the pattern
+
+;;; (that &optional which sentence) => Whatever the bot said last
+;;;   which is an index, 0 most recent
+;;;   sentence selects the sentence within the utterance.
+
+;;; (input &optional which sentence) => Whatever the user said last.
+;;;   which is an index, 0 most recent
+;;;   sentence selects the sentence within the utterance.
+
+;;; (that-star &optional index) => the bot output matched by the star in the THAT portion of the match-path
+
+;;; (topic-star &optional index) => the part of the topic matched by the star in the TOPIC portion of the match-path
+
+;;; (get name) => the value of the conversation variable `name'
+
+;;; (bot name) => Like get but restricted to the read-only variables set and startup
+
+;;; Text formatting (Section 7.2)
+
+;;; (uppercase text) => all upper case
+;;; (lowercase text) => all lowercase
+;;; (formal text) => titlecase
+;;; (sentence text) => sentence case
+
+;;; Conditionals (Section 7.3)
+
+;;; some kind of branching control flow. Probably WHEN, UNLESS, and a
+;;; SWITCH would suffice. Predicates will work on conversation
+;;; variables.
+
+;;; (random &rest elements) => output one of `elements' at random.
+
+;;; Capture (Section 7.4)
+
+;;; (set name stuff) => set the value of conversation variable `name' to `stuff'
+
+;;; Symbolic reduction (Section 7.5)
+
+;;; (process stuff) => process `stuff' as if it were user input (called srai in AIML)
+
+;;; Transformation (Section 7.6)
+
+;;; (person2 stuff) => 1st person <-> 3rd person
+
+;;; (person stuff) => 1st person <-> 2nd person
+
+;;; (gender stuff) => masculine <-> feminine
+
+;;; Covert operation (Section 7.7)
+
+;;; (think stuff) => like PROCESS but produces no output (but may change state of conversation)
+
+
+
+;;;; VARIABLES used by <bot> elements in ALICE AIML
+(defun make-bot-variables ()
+  (let ((h (make-hash-table)))
+    (setf (gethash 'name h) "Amy")
+    (setf (gethash 'master h) "Peter Seibel")
+    (setf (gethash 'botmaster h) "author")
+    (setf (gethash 'birthday h) "February 1st, 2010")
+
+    ;(setf (gethash 'friends h) "friends")
+    ;(setf (gethash 'boyfriend h) "boyfriend")
+    ;(setf (gethash 'size h) "size")
+    ;(setf (gethash 'location h) "location")
+    ;(setf (gethash 'species h) "species")
+    ;(setf (gethash 'gender h) "gender")
+    ;(setf (gethash 'genus h) "genus")
+    ;(setf (gethash 'favoritefood h) "favoritefood")
+    ;(setf (gethash 'order h) "order")
+    ;(setf (gethash 'kingdom h) "kingdom")
+    ;(setf (gethash 'emotions h) "emotions")
+    ;(setf (gethash 'phylum h) "phylum")
+    ;(setf (gethash 'class h) "class")
+    ;(setf (gethash 'family h) "family")
+    ;(setf (gethash 'faily h) "faily")
+    ;(setf (gethash 'religion h) "religion")
+    ;(setf (gethash 'party h) "party")
+    ;(setf (gethash 'sign h) "sign")
+    ;(setf (gethash 'arch h) "arch")
+    ;(setf (gethash 'etype h) "etype")
+    ;(setf (gethash 'nationality h) "nationality")
+    ;(setf (gethash 'wear h) "wear")
+    ;(setf (gethash 'question h) "question")
+    ;(setf (gethash 'age h) "age")
+    ;(setf (gethash 'version h) "version")
+    ;(setf (gethash 'build h) "build")
+    ;(setf (gethash 'birthplace h) "birthplace")
+    ;(setf (gethash 'orientation h) "orientation")
+    ;(setf (gethash 'feelings h) "feelings")
+    ;(setf (gethash 'friend h) "friend")
+    ;(setf (gethash 'girlfriend h) "girlfriend")
+    ;(setf (gethash 'forfun h) "forfun")
+    ;(setf (gethash 'looklike h) "looklike")
+    ;(setf (gethash 'kindmusic h) "kindmusic")
+    ;(setf (gethash 'favoriteband h) "favoriteband")
+    ;(setf (gethash 'favoritesong h) "favoritesong")
+    ;(setf (gethash 'favoritebook h) "favoritebook")
+    ;(setf (gethash 'favoritecolor h) "favoritecolor")
+    ;(setf (gethash 'favoritemovie h) "favoritemovie")
+    ;(setf (gethash 'favoriteartist h) "favoriteartist")
+    ;(setf (gethash 'favoriteauthor h) "favoriteauthor")
+    ;(setf (gethash 'favoriteactor h) "favoriteactor")
+    ;(setf (gethash 'favoriteactress h) "favoriteactress")
+    ;(setf (gethash 'favoritesport h) "favoritesport")
+    ;(setf (gethash 'talkabout h) "talkabout")
+    ;(setf (gethash 'hockeyteam h) "hockeyteam")
+    ;(setf (gethash 'baseballteam h) "baseballteam")
+    ;(setf (gethash 'footballteam h) "footballteam")
+    ;(setf (gethash 'celebrity h) "celebrity")
+    ;(setf (gethash 'celebrities h) "celebrities")
+    ;(setf (gethash 'president h) "president")
+    ;(setf (gethash 'vocabulary h) "vocabulary")
+    ;(setf (gethash 'website h) "website")
+    ;(setf (gethash 'favoriteshow h) "favoriteshow")
+    ;(setf (gethash 'dailyclients h) "dailyclients")
+    ;(setf (gethash 'hair h) "hair")
+    ;(setf (gethash 'nclients h) "nclients")
+    ;(setf (gethash 'totalclients h) "totalclients")
+    ;(setf (gethash 'birthdate h) "birthdate")
+    ;(setf (gethash 'ndevelopers h) "ndevelopers")
+    ;(setf (gethash 'memory h) "memory")
+    ;(setf (gethash 'language h) "language")
+    ;(setf (gethash 'email h) "email")
+    ;(setf (gethash 'favoritequestion h) "favoritequestion")
+    ;(setf (gethash 'os h) "os")
+    ;(setf (gethash 'ethics h) "ethics")
+    ;(setf (gethash 'gender h) "gender")
+    ;(setf (gethash 'favoritesubject h) "favoritesubject")
+    ;(setf (gethash 'feeling h) "feeling")
+    ;(setf (gethash 'emotion h) "emotion")
+    h))

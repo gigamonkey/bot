@@ -1,0 +1,7 @@
+("*" :template "Catch all")
+("* or *" :template "Make up your mind.")
+("* or" :template "Or what.")
+("* or b" :template "Specifically b.")
+("a or b" :template "Specifically a or b")
+("a or *" :template "Specifically a.")
+("a or" :template "a or what?")
