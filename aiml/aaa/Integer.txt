@@ -1,0 +1,75 @@
+Addition of positive integers 
+by Kim Sullivan 
+4 Jun 2002
+http://alice.sunlitsurf.com/pipermail/alicebot-style/2002-June/000125.html
+
+This is more like a 'proof of concept' than anything. I know this has been
+done before by Noel (I think) but I distantly remember you had to add
+further categories to support additional numbers.
+
+The algorithm used is basically the same humans use when adding two big
+numbers together- they write them below and add the digits, one by one from
+right to left. AIML wildcards unfortunately match only whole words separated
+by spaces, so the numerals have to be separated with spaces. A second,
+slight complication, is that single words/digits can only be matched from
+left, so the numbers have to be reversed before adding them.
+
+The files 0plusx to 9plusx [N.B. All of the original files have been combined
+into a single file Integer.aiml --ed.]
+all contain atomic categories in the form of
+CALCULATE a PLUS b that return the least significant digit of the result,
+setting an additional variable (called 'remainder') to the amount of tens.
+
+The file xplusy contains the necessary srais to add numbers with more than 1
+digit.
+
+math.aiml contains the 'wrapper' function ADD * PLUS * which provides an
+error message if somehting happened. You have to adjust it a little
+according to what interpreter you're using, P (and probably J) permit empty
+values in the value attribute.
+
+Note that due to a bug in D with multiple wildcards & srais this won't work
+there. It doesn't run on J too, for some reason I'm not even able to
+retrieve the result from the atomic categories (CALCULATE 1 PLUS 1 should
+return 2 but doesn't) and it gives me a no-match when I try ADD somehing
+PLUS something. As if this wasn't enough, it won't run on my own program P
+version 1.4 or earlier either (get the latest 1.5). Shame on us all.
+
+Example how it should work
+ADD 1 9 5 6 PLUS 9 8 4 6
+1 1 8 0 2
+
+optimizations (more elegant naming conventions), thoughts and bug reports
+are welcome, as always.
+
+Kim
+
+ 
+Bug fixes and additions
+
+by John Campbell
+http://www.jesus.org.uk
+
+1. CALCULATE keyword changed to XCALCULATE
+throughout to avoid errors with plain text
+queries of the form "calculate 9 plus 9" 
+
+2. Templates added for "CALCULATE * PLUS *" and
+"ADD * AND *"
+
+3. Carry digit restored in template for "ADD *
+PLUS *"
+
+4. Srai added before IMPLODE in same template
+
+5. Matherr error message changed to be
+explanatory and more correct. (It couldn't parse
+"add 5 apples and 5 bananas" correctly)
+
+6. template for IMPLODE * * changed to recurse
+correctly, though it is ineffective on
+Pandorabots and any other program that adds
+spaces to "stars".
+
+ 
+ 

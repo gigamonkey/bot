@@ -1,0 +1,30 @@
+Manipulating Client Predicates
+
+Dr. Richard S. Wallace
+ALICE A.I. Foundation
+July, 2005
+
+AIML client Predicates are like variables that are specific to a given
+client, such as his or her name, age, gender, occupation, preferences
+and so on.  These need not be fixed, and indeed predicates are also
+used for such fast changing entities as the values of adverbs such as
+he, she and it.  An important special predicate in AIML is the topic,
+which can be set in the template, but also used to control the flow of
+pattern matching with the AIML <topic> tag.  Another important
+built-in predicate is <that/>, which may not be set by the botmaster.
+
+Many AIML systems use different techniques to set predicate default values.
+Some use a special externial file, often in XML format, to specify default
+predicate values.  Predicate defaults may also be set in AIML itself.  The
+purpose of the category with the pattern SET PREDICATES OM is to set all
+the default predicate values.  For example, the default predicate value for
+"he" is "he" (the predicate itself) and for "has" is "mother" (because everyone
+has a mother).  There is also a special meta predicate set to "set".  Recall
+that the AAA set assumes a global default predicate return value of OM.
+If the meta predicate has not been set, then the SET PREDICATES category
+will activate SET PREDICATES OM and set all the default values, including the
+meta predicate.  This ensures that SET PREDICATES OM will be activated only
+once, because the next time SET PREDICATES is activated, the meta predicate
+will no longer be OM, and the recusion will activate the category with the
+pattern SET PREDICATES *.
+

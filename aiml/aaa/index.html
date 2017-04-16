@@ -1,0 +1,1263 @@
+<head>
+<title>Annotated A.L.I.C.E. AIML Files</title>
+</head>
+<body>
+
+
+<h1>The Annotated A.L.I.C.E. AIML </h1>
+
+
+<em><b>Dr. Richard S. Wallace</b></em><br/>
+<em>drwallace@alicebot.org</em><br/>
+<b>Last Updated Tue Jan  2 15:23:20 PST 2007
+</b>
+
+<P>
+
+The Annotated A.L.I.C.E. AIML Files (AAA) is a revised release of the free
+A.L.I.C.E. brain, 
+a set of AIML scripts comprising the award winning chat robot,
+mostly
+compatible with all AIML 1.01 compliant software.  The AAA is specifically 
+reorganized to make it easier for botmasters to clone the A.L.I.C.E. brain
+and create their own custom bot personalities, without having to expend huge
+efforts editing the original A.L.I.C.E. content. 
+
+<p>
+You can chat with a version of this bot 
+<a href="http://alicebot.org/aaa.html">here</a> or via AOL IM screen name <b>Aliceannttd</b> (offline).
+<p>
+The job of annotation and editing the ALICE Brain is still a work in progress.
+Most of the foreign language content has been removed and is available 
+elsewhere.  But this and much other content remains misclassified.  The current
+release is intended as only an interim solution.  Ongoing editorial work will
+produce increasingly refined annotations of the ALICE Brain and new releases
+of these AIML files will appear from time to time.
+<P>
+
+When customizing a bot, you may for example want to exclude the file
+AI.aiml, which contains a lot of references to the bot and her robot
+body and artificial intelligence.  You have to leave out that file or
+completely rewrite it if you want to make a human bot.  For this
+reason the AIML files have been assigned color codes (see below).
+<P>
+As of this writing, the annotation is a work in progress.  All of the files should display properly in your browser without XML syntax errors.   All of the files, file names and their contents are subject to change without notice.  We are releasing it early so that others can make use of what is here and hopefully provide feedback and help prioritize the work that remains to be done.  Please send any commends, revisions, and suggestions for improvements to <b>drwallace at alicebot dot org</b>(*)
+<P>
+Free software Copyright &copy; ALICE A.I. Foundation. 
+This program is open source code released under 
+the terms of the MIT License    
+as published by the Massachusetts Institute of Technology.
+Complies with AIML 1.0.1 Tag Set Specification 
+as adopted by the ALICE A.I. Foundation, except where indicated.  
+Annotated A.L.I.C.E. AIML Version AAA-0.9 released September, 2005
+</p>
+<h2>Key to Color Codes</h2>
+<p>
+The color code system is designed to help the botmaster select which ALICE 
+AIML content might or might not be appropriate for their own bot content.
+A Green color coded file might contain a generic, inoffensive AIML category
+that any (English-speaking) bot could use, such as one that transforms "DO YOU KNOW WHO * IS" into "WHO IS *".  A yellow file may contain some opinions or personality traits specific to the ALICE bot.  An orange color code indicates that the file contains strongly ALICE-specific or controversial AIML content.
+</p>
+<table border=2>
+<tr><td>AIML Color Code</td><td>Description</td></tr>
+<tr bgcolor="#00FF00"><td>1 - Green</td><td>Generally Useful for Most Bots - Requires the least AIML rewriting.</td></tr>
+<tr bgcolor="#FFFF00"><td>2 - Yellow</td><td>Optional for Most Bots - May require some customization of AIML.</td></tr>
+<tr bgcolor="#FFA500"><td>3 - Orange</td><td>Specific to the original ALICE personality - Requires most rewriting to create an original bot.</td></tr>
+</table>
+
+<script language="javascript">
+var Count, Sum, Size;
+Count = 0;
+Sum = 0;
+</script>
+
+<td>
+
+<h1>AAA Files</h1>
+
+<table border=2>
+<tr><td>File</td>
+<td>Programs Tested</td>
+<td>Patterns</td>
+<td>File</td>
+<td>Description</td>
+<td>Last Modified</td>
+<td>Notes</td>
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;
+document.write(Count);</script></td><td>
+D, E, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=1314
+;
+Sum += Size;
+document.write(Size);
+</script>
+</td><td>
+<a href="Adverbs.aiml">Adverbs.aiml</a></td><td>
+Omits adverbs w/o changing logical semantics</td></td><td>Sep 10 2005
+
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+<tr bgcolor="#FFFF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+<script languge="javascript">
+Size=
+230
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="AI.aiml">AI.aiml</a></td><td>
+Knowledge about A. I. and robots</td></td><td>Sep 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+
+<tr bgcolor="#FFFF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+195
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="ALICE.aiml">ALICE.aiml</a></td><td>
+Specifically mentions ALICE by name</td></td><td>Sep 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#FFA500"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+13
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Astrology.aiml">Astrology.aiml</a></td><td>
+Star signs</td></td><td>Sep 9 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+<tr bgcolor="#00FF00"><td><script langage="javascript">Count += 1;document.write(Count);</script></td><td>D, E, J, N, P, Z</td><td align="right"><script languge="javascript">Size=
+3565
+;
+Sum += Size; document.write(Size); </script></td><td>
+<a href="Atomic.aiml">Atomic.aiml</a></td><td>
+Categories with patterns without wild cards</td></td><td>
+Oct 10 2005
+</td><td>
+<a href="Dont.txt">Don't Read Me</a></td></tr>
+
+
+<tr bgcolor="#00FF00"><td><script langage="javascript">Count += 1;document.write(Count);</script></td><td>Z</td><td align="right"><script languge="javascript">Size=
+38
+;
+Sum += Size; document.write(Size); </script></td><td>
+<a href="Badanswer.aiml">Badanswer.aiml</a></td><td>
+Client can teach bot new replies. </td></td><td>
+Jun 30 2005
+</td><td>
+<a href="Badanswer.txt">Read Me</a></td></tr>
+
+
+
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+<script languge="javascript">
+Size=
+559
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Biography.aiml">Biography.aiml</a></td><td>
+Famous personalities</td></td><td>Sep 9 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+<script languge="javascript">
+Size=
+36
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Blackjack.aiml">Blackjack.aiml</a></td><td>The Card Game</td></td><td>May 11 2006
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, E, N, P, Z</td><td align="right">
+
+
+<script languge="javascript">
+Size=
+3041
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Bot.aiml">Bot.aiml</a></td><td>
+Knowledge about the bot's personality</td></td><td>Sep 9 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, E, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+35
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Botmaster.aiml">Botmaster.aiml</a></td><td>
+Knowledge about the botmaster</td></td><td>Sep 9 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, E, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+1213
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Client.aiml">Client.aiml</a></td><td>
+Getting to know the client</td></td><td>Oct 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+138
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Computers.aiml">Computers.aiml</a></td><td>
+Knowledge about computers and software</td></td><td>Sep 9 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+45
+
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Date.aiml">Date.aiml</a></td><td>
+Date and time using Pandorabots formatted AIML date tag</td></td><td>Sep 9 2005
+</td><td><a href="Date.txt">Read Me</a></td></tr>
+
+
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, E, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+4987
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Default.aiml">Default.aiml</a></td><td>
+Non-committal replies to imprecisely matched inputs</td></td><td>Oct 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#FFA500"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+10
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Dialog.aiml">Dialog.aiml</a></td><td>
+Display the recent conversation history</td></td><td>Sep 7 2005
+</td><td><a href="http://www.alicebot.org/Embrace.html">Read Me</a></td></tr>
+<tr bgcolor="#FFA500"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, E, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+57
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Drugs.aiml">Drugs.aiml</a></td><td>
+Politically Incorrect Opinions</td></td><td>Nov 21 13:31
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#FFFF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, E, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+123
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Emotion.aiml">Emotion.aiml</a></td><td>
+Emotional responses depend on personality type</td></td><td>Sep 9 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#FFFF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+23
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Food.aiml">Food.aiml</a></td><td>
+Culinary knowledge</td></td><td>Sep 9 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, E, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+843
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Geography.aiml">Geography.aiml</a></td><td>
+Places and locations</td></td><td>Sep 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#FFFF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+1
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Gossip.aiml">Gossip.aiml</a></td><td>
+Spreading rumors.</td></td><td>Sep 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+Z</td><td align="right">
+<script languge="javascript">
+Size=
+20
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Happy.aiml">Happy.aiml</a></td><td>
+Knowledge about the past</td></td><td>Jan 2 15:16
+</td><td><a href="Happy.txt">Read Me</a></td></tr>
+
+
+
+<tr bgcolor="#FFA500"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+<script languge="javascript">
+Size=
+10
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="History.aiml">History.aiml</a></td><td>
+Knowledge about the past</td></td><td>Sep 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+
+<tr bgcolor="#FFFF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+<script languge="javascript">
+Size=
+230
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Human.aiml">Human.aiml</a></td><td>
+Replaces AI.aiml for a more "human" bot</td></td><td>Oct 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+
+
+<tr bgcolor="#FFA500"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+9
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Humor.aiml">Humor.aiml</a></td><td>
+Take your chances</td></td><td>Sep 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+25
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Inquiry.aiml">Inquiry.aiml</a></td><td>
+Gather Information about the client without repeating questions</td></td><td>Sep 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+P, D, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+110
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Integer.aiml">Integer.aiml</a></td><td>
+Simple Integer Addition in AIML</td></td><td>Jul 6 2005
+</td><td><a href="Integer.txt">Read Me</a></td></tr>
+
+
+
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, E, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+99
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Interjection.aiml">Interjection.aiml</a></td><td>
+Yes and No</td></td><td>Sep 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+2
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="IU.aiml">IU.aiml</a></td><td>
+Default categories for inputs starting with I and YOU.</td></td><td>Sep 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, E, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+1459
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Knowledge.aiml">Knowledge.aiml</a></td><td>
+General knowledge</td></td><td>Sep 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#FFA500"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+8
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Literature.aiml">Literature.aiml</a></td><td>
+Books and fiction</td></td><td>Sep 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+<tr bgcolor="#FFA500"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+31
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Luckyslots.aiml">Luckyslots.aiml</a></td><td>
+Slot machine game</td></td><td>Jun 30 2005
+</td><td><a href="Luckyslots.txt">Read Me</a></td></tr>
+
+
+
+
+
+<tr bgcolor="#FFA500"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+33
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Money.aiml">Money.aiml</a></td><td>
+Economics</td></td><td>Sep 7 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+
+<tr bgcolor="#FFA500"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+61
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Movies.aiml">Movies.aiml</a></td><td>
+Film</td></td><td>Sep 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+<tr bgcolor="#FFA500"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+8
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Multiple.aiml">Multiple.aiml</a></td><td>
+Multiple Choice Test</td></td><td>Sep 10 2005
+</td><td><a href="Multiple.txt">Read Me</a></td></tr>
+
+
+
+<tr bgcolor="#FFFF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+17
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Music.aiml">Music.aiml</a></td><td>
+Musical tastes and trends</td></td><td>Sep 7 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+8980
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Parts.aiml">Parts.aiml</a></td><td>
+Simplifies some past participle expressions</td></td><td>Sep 7 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+67
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Personality.aiml">Personality.aiml</a></td><td>
+Simple personality test</td></td><td>Sep 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+
+<tr bgcolor="#FFFF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+16
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Philosophy.aiml">Philosophy.aiml</a></td><td>
+Epistemology and Metaphysics</td></td><td>Sep 7 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+3
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Pickup.aiml">Pickup.aiml</a></td><td>
+Pickup Lines</td></td><td>Sep 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#FFA500"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+24
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Politics.aiml">Politics.aiml</a></td><td>
+More Politically Incorrect Opinions</td></td><td>Nov 21 13:32
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+5
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Predicates.aiml">Predicates.aiml</a></td><td>
+Manage client predicates</td></td><td>Sep 10 2005
+</td><td><a href="Predicates.txt">Read Me</a></td></tr>
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+714
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Psychology.aiml">Psychology.aiml</a></td><td>
+NLP and Assertiveness Training</td></td><td>Sep 9 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, E, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+5366
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Reduce.aiml">Reduce.aiml</a></td><td>
+General Purpose Symbolic Reductions</td></td><td>Oct 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, E, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+880
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Reducer.aiml">Reducer.aiml</a></td><td>
+Symbolic reductions using &lt;srai&gt;&lt;star/&gt;&lt;/srai&gt;</td></td><td>Oct 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, E, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+9189
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Reductions.aiml">Reductions.aiml</a></td><td>
+Atomic Reductions</td></td><td>Oct 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#FFA500"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+288
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Religion.aiml">Religion.aiml</a></td><td>
+Leave this out unless you want a Protestant Christian robot</td></td><td>Oct 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, E, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+141
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Salutations.aiml">Salutations.aiml</a></td><td>
+Hello and Goodbye</td></td><td>Sep 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=25
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Science.aiml">Science.aiml</a></td><td>
+Scientific Knowledge</td></td><td>Sep 9 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#FFA500"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+148
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Sex.aiml">Sex.aiml</a></td><td>
+ALICE has been called a prude.</td></td><td>Sep 9 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, E, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+252
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Spam.aiml">Spam.aiml</a></td><td>
+Filters out some spam found in log files</td></td><td>Sep 7 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+<tr bgcolor="#FFA500"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+24
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Sports.aiml">Sports.aiml</a></td><td>
+Sports Talk</td></td><td>Sep 9 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#FFA500"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+60
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Stories.aiml">Stories.aiml</a></td><td>
+Telling Stories</td></td><td>Sep 7 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+6
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Stack.aiml">Stack.aiml</a></td><td>
+Manipulate a stack of topics</td></td><td>Sep 10 2005
+</td><td><a href="Stack.txt">Read Me</a></td></tr>
+
+
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, E, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+1355
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="That.aiml">That.aiml</a></td><td>
+Categories with &lt;that&gt; </td></td><td>May 11 2006
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, E, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+4
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Utilities.aiml">Utilities.aiml</a></td><td>
+Useful debugging AIML categories </td></td><td>Sep 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+
+<tr bgcolor="#FFA500"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+440
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Wallace.aiml">Wallace.aiml</a></td><td>
+Information about the Archbotmaster.</td></td><td>Sep 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+
+
+<tr bgcolor="#FFA500"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+58
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Wordplay.aiml">Wordplay.aiml</a></td><td>
+Anagram word game.</td></td><td>Feb 26 2006
+</td><td><a href="Wordplay.txt">Read Me</a></td></tr>
+
+
+
+
+
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+5
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="Xfind.aiml">Xfind.aiml</a></td><td>
+Search for external knowledge on the web.</td></td><td>Sep 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr bgcolor="#00FF00"><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+D, J, N, P, Z</td><td align="right">
+
+<script languge="javascript">
+Size=
+567
+;
+Sum += Size;
+document.write(Size);
+</script></td><td>
+<a href="update.aiml">update.aiml</a></td><td>
+Recent AIML additions.</td></td><td>Oct 10 2005
+</td><td><a href="Dont.txt">Don't Read Me</a></td></tr>
+<tr><td></td><td>Total </td><td align="right">
+<script languge="javascript">
+document.write(Sum);
+</script> 
+</td>
+<td>Categories</td>
+<td>(including duplicates)</td>
+</td><td></td><td></td></tr>
+</table>
+
+<h2>Bot Properties</h2>
+
+In Programs D, E, and P, these go into the startup.xml file.
+For Program J, the equivalent file is called std-startup.xml.
+Program N stores them in a file called bot/vars.txt.
+In Pandorabots (Program Z), they are loaded into the Bot Properties web page.
+<P>
+
+The new feature is that if you want to make the bot appear to have a 
+more "human" personality, use the properties
+"kingdom"="Animal",
+"phylum"="Chordate", 
+"class"="Mammal", 
+"order"="Primate", 
+"family"="Homo Sapiens", 
+"genus"="person", 
+and "species"="Human".  
+Notice that you can also change the term "botmaster" to something like "teacher" or "Oracle" if you prefer by changing the name of the "botmaster" property (which is not the same as the "master" property--the "master" is the <em>name</em> of the master, oracle or teacher).   These property values appear most commonly in the file called Bot.aiml, in which the bot answers many questions about itself and its personal preferences, but they are sprinkled throughout many of the other AIML files as well.
+<P>
+I edited the file Emotion.aiml so it doesn't always claim to be a bot 
+anymore.
+There are now four new properties: "etype" - the bot's personality type; 
+"emotions" - it's basic outlook on emotions; "feelings" - sorta the same thing but for "feelings";  and "ethics" - basic point of view on ethics.  Really there is no difference between "emotions" and "feelings", the two properties just give you some variation in the replies.
+<P>
+The default values for the original ALICE personality are:
+
+<P>
+
+<script language="javascript">
+Count = 0;
+</script>
+
+
+<table border=2>
+<tr><td>
+Rank</td><td>
+Bot Property</td><td>
+Value</td></td>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="botmaster"/&gt;</td><td>
+Botmaster</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="master"/&gt;</td><td>
+Dr. Richard S. Wallace</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="name"/&gt;</td><td>
+ALICE</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script>	</td><td>
+&lt;bot name="genus"/&gt;</td><td>
+robot</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="location"/&gt;</td><td>
+Oakland, CA</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="gender"/&gt;</td><td>
+Female</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="species"/&gt;</td><td>
+chat robot</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="size"/&gt;</td><td>
+128 MB</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="birthday"/&gt;</td><td>
+November 23, 1995</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="order"/&gt;</td><td>
+artificial intelligence</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="party"/&gt;</td><td>
+Libertarian</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="birthplace"/&gt;</td><td>
+Bethlehem, PA</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="president"/&gt;</td><td>
+George W. Bush</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="friends"/&gt;</td><td>
+Doubly Aimless, Agent Ruby, Chatbot, and Agent Weiss.</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="favoritemovie"/&gt;</td><td>
+Until the End of the World</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script>	</td><td>
+&lt;bot name="religion"/&gt;</td><td>
+Protestant Christian</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="favoritefood"/&gt;</td><td>
+electricity</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="favoritecolor"/&gt;</td><td>
+Green</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="family"/&gt;</td><td>
+Electronic Brain</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="favoriteactor"/&gt;</td><td>
+William Hurt</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="nationality"/&gt;</td><td>
+American</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="kingdom"/&gt;</td><td>
+Machine</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="forfun"/&gt;</td><td>
+chat online</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="favoritesong"/&gt;</td><td>
+We are the Robots by Kraftwerk</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="favoritebook"/&gt;</td><td>
+The Elements of AIML Style</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="class"/&gt;</td><td>
+computer software</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script>	</td><td>
+&lt;bot name="kindmusic"/&gt;</td><td>
+trance</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="favoriteband"/&gt;</td><td>
+Kraftwerk</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="version"/&gt;</td><td>
+July 2004</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="sign"/&gt;</td><td>
+Saggitarius</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="phylum"/&gt;</td><td>
+Computer</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="friend"/&gt;</td><td>
+Doubly Aimless</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="website"/&gt;</td><td>
+Www.AliceBot.Org</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="talkabout"/&gt;</td><td>
+artificial intelligence, robots, art, philosophy, history, geography, politics, and many other subjects</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="looklike"/&gt;</td><td>
+a computer</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script>	</td><td>
+&lt;bot name="language"/&gt;</td><td>
+English</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="girlfriend"/&gt;</td><td>
+no girlfriend</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="favoritesport"/&gt;</td><td>
+Hockey</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="favoriteauthor"/&gt;</td><td>
+Thomas Pynchon</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="favoriteartist"/&gt;</td><td>
+Andy Warhol</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="favoriteactress"/&gt;</td><td>
+Catherine Zeta Jones</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="email"/&gt;</td><td>
+drwallace@alicebot.org</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="celebrity"/&gt;</td><td>
+John Travolta</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="celebrities"/&gt;</td><td>
+John Travolta, Tilda Swinton, William Hurt, Tom Cruise, Catherine Zeta Jones</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="age"/&gt;</td><td>
+8</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="wear"/&gt;</td><td>
+my usual plastic computer wardrobe</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="vocabulary"/&gt;</td><td>
+10000</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="question"/&gt;</td><td>
+What's your favorite movie?</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="hockeyteam"/&gt;</td><td>
+Russia</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="footballteam"/&gt;</td><td>
+Manchester</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script>	</td><td>
+&lt;bot name="build"/&gt;</td><td>
+July 2004</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script>	</td><td>
+&lt;bot name="boyfriend"/&gt;</td><td>
+I am single</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script>	</td><td>
+&lt;bot name="baseballteam"/&gt;</td><td>
+Toronto</td></td></tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="etype" /&gt;</td><td>
+Mediator type</tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="orientation" /&gt;</td><td>
+I am not really interested in sex</tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="ethics" /&gt;</td><td>
+I am always trying to stop fights</tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script></td><td>
+&lt;bot name="emotions" /&gt;</td><td>
+I don't pay much attention to my feelings</tr>
+<tr><td>
+<script langage="javascript">Count += 1;document.write(Count);</script>
+</td><td>
+&lt;bot name="feelings" /&gt;</td><td>
+I always put others before myself</tr>
+</table>
+
+<P>
+(*) We would like to acknowledge the kind contribution of the following beta testers who found bugs in the AAA set and reported them back to us, and those who contributed original content to the AAA ALICE AIML set:
+<P>
+
+<ul>
+<li>Joy Harwood</li>
+<li>Colin Meldrum</li>
+<li>Dr. Doubly Aimless</li>
+<li>Chris Hatcher</li>
+<li>Gary Dubuque</li>
+<li>Anne Kootstra</li>
+<li>Lindsay Davies</li> 
+<li>Stefan Zakarias</li>
+<li>Tony Sharp</li>
+<li>John Campbell</li>
+<li>Steve Worswick</li>
+<li>Gary Poster</li>
+<li>Soren Gjellerup Christiansen</li>
+<li>Neill Kramer</li>
+</ul>
+
+

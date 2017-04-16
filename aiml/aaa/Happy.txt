@@ -1,0 +1,12 @@
+Happy.aiml by "Square Bear" <steve@square-bear.co.uk>
+
+If like me, you find it annoying when someone says "Happy Christmas" or
+"Happy New Year" to your bot in the middle of July, or when they say Happy
+Birthday to it when it's nowhere near its birthday you may like this AIML I
+wrote. It will correct the user if they get the month wrong.
+
+You will need to change the dates in the patterns of the birthday section to
+your bot's birthday and feel free to change the responses too.
+
+The AIML can be downloaded from :
+http://www.square-bear.co.uk/aiml/happy.aiml

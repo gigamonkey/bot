@@ -1,0 +1,125 @@
+Formatted date tag
+
+Dr. Richard S. Wallace
+ALICE A. I. Foundation
+July, 2005 
+
+Pandorabots supports three extension attributes to the date element in
+templates:
+
+ 
+         locale
+         format
+         timezone
+ 
+locale allows the language to be selected using standard
+language/region names. It defaults to en_US. The set of supported
+locales are:
+
+ 
+af_ZA  ar_OM  da_DK  en_HK  es_CO  es_PY  fr_CA  is_IS  mt_MT  sh_YU  vi_VN
+ar_AE  ar_QA  de_AT  en_IE  es_CR  es_SV  fr_CH  it_CH  nb_NO  sk_SK  zh_CN
+ar_BH  ar_SA  de_BE  en_IN  es_DO  es_US  fr_FR  it_IT  nl_BE  sl_SI  zh_HK
+ar_DZ  ar_SD  de_CH  en_NZ  es_EC  es_UY  fr_LU  ja_JP  nl_NL  sq_AL  zh_SG
+ar_EG  ar_SY  de_DE  en_PH  es_ES  es_VE  ga_IE  kl_GL  nn_NO  sr_YU  zh_TW
+ar_IN  ar_TN  de_LU  en_SG  es_GT  et_EE  gl_ES  ko_KR  no_NO  sv_FI
+ar_IQ  ar_YE  el_GR  en_US  es_HN  eu_ES  gv_GB  kw_GB  pl_PL  sv_SE
+ar_JO  be_BY  en_AU  en_ZA  es_MX  fa_IN  he_IL  lt_LT  pt_BR  ta_IN
+ar_KW  bg_BG  en_BE  en_ZW  es_NI  fa_IR  hi_IN  lv_LV  pt_PT  te_IN
+ar_LB  bn_IN  en_BW  es_AR  es_PA  fi_FI  hr_HR  mk_MK  ro_RO  th_TH
+ar_LY  ca_ES  en_CA  es_BO  es_PE  fo_FO  hu_HU  mr_IN  ru_RU  tr_TR
+ar_MA  cs_CZ  en_GB  es_CL  es_PR  fr_BE  id_ID  ms_MY  ru_UA  uk_UA
+ 
+format is a format string as given to the Unix strftime function:
+
+http://www.opengroup.org/onlinepubs/007908799/xsh/strftime.html
+ 
+You can include your own message in the format string, along with one
+or more format control strings.  These format control strings tell the
+date function whether to print the date or time, whether to use AM or
+PM, a 24 hour clock or a 12 hour, abbreviate the day of the week or
+not, and so on.  Some of the supported format control strings include:
+
+ 
+
+%a Abbreviated weekday name
+
+%A Full weekday name
+
+%b Abbreviated month name
+
+%B Full month name
+
+%c Date and time representation appropriate for locale
+
+%d Day of month as decimal number (01 . 31)
+
+%H Hour in 24-hour format (00 . 23)
+
+%I Hour in 12-hour format (01 . 12)
+
+%j Day of year as decimal number (001 . 366)
+
+%m Month as decimal number (01 . 12)
+
+%M Minute as decimal number (00 . 59)
+
+%p Current locale.s A.M./P.M. indicator for 12-hour clock
+
+%S Second as decimal number (00 . 59)
+
+%U Week of year as decimal number, with Sunday as first day of week (00 . 53)
+
+%w Weekday as decimal number (0 . 6; Sunday is 0)
+
+%W Week of year as decimal number, with Monday as first day of week (00 . 53)
+
+%x Date representation for current locale
+
+%X Time representation for current locale
+
+%y Year without century, as decimal number (00 . 99)
+
+%Y Year with century, as decimal number
+
+%Z Time-zone name or abbreviation; no characters if time zone is unknown
+
+%% Percent sign
+
+ 
+
+ 
+If you don't specify a format you'll just get the date using the
+default format for the particular locale.
+
+ 
+
+timezone is the time zone expressed as the number of hours west of GMT.
+
+ 
+
+If any of the attributes are invalid, it will fall back to the default 
+
+behavior of <date/> (ie with no attributes specified)
+
+ 
+
+To display the date and time in French using Central European time you
+would use:
+
+ 
+         <date locale="fr_FR" timezone="-1" format="%c"/>
+ 
+You can also improve the specificity of common certain time and date
+related inquiries to the ALICE bot, as illustrated by the following
+dialogue fragment.
+
+
+Human: what day is it 
+ALICE: Thursday. 
+Human: what month is it 
+ALICE: December. 
+Human: what year is this 
+ALICE: 2004. 
+Human: what is the date 
+ALICE: Thursday, December 02, 2004.

@@ -1,0 +1,5 @@
+This AIML file is part of the ALICE AAA Set, 
+http://www.alicebot.org/aiml/aaa/
+released freely under the MIT License.
+Copyright &copy ALICE A. I. Foundation, Inc.
+

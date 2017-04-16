@@ -1,0 +1,383 @@
+Badanswer.aiml
+
+April 24, 2005
+Dr. Richard S. Wallace
+
+
+Pandorabots has developed an approach to "learning" new AIML
+categories. Their solution is borrowed from the backquoting and macro
+mechanisms of, wouldn't you know, Lisp.
+
+For a demo check out the AAA bot at
+
+http://www.alicebot.org/aaa.html
+
+If you don't like the bot's response type "bad answer" and it will
+dynamically create a new category (visible only to the individual
+client).
+
+We are releasing some AIML so you can experiment with this:
+
+
+http://www.alicebot.org/aiml/aaa/Badanswer.aiml
+
+This <learn> is different than any previous AIML implementation of
+<learn> although it may have some properties in common with some of
+them.
+
+These <learn> and <eval> tags are specific to Pandorabots AIML only,
+not part of the AIML standard nor any other AIML interpreter.
+
+The <learn> tag contains a complete AIML category. The <category>
+contains the usual <pattern>, <template> and optional <that>. The way
+the learn tag is defined, nothing inside the new category has to be
+quoted, or marked as CDATA or marked up in any way differently than an
+ordinary AIML category.
+
+The exception to the rule is provided by the <eval> tag. If you do
+want to process something inside the new category, use the <eval> tag.
+Notice in the examples given the botmaster used <eval> to create a new
+uppercase AIML pattern from a stored predicate value:
+
+<eval>
+<uppercase>
+<get name="badanswer-input" />
+</uppercase>
+</eval>
+
+
+Otherwise, outside of the <eval> tag, everthing inside the <learn> tag
+is not evaluated, and the result is stored as a new AIML category.
+
+These features are available for any bots on Pandorabots but obviously
+not part of the AIML spec or standard.
+
+Things that are missing are:
+
+
+The added AIML isn't persisted in the db for a particular customer.
+(For that matter neither are predicates.)
+The botmaster can't examine the added AIML.
+It's not clear how well this will scale with large numbers of clients
+(each gets there own mini-graph).
+
+Anyway, feel free to experiment with it.
+
+
+-----
+
+Updated June, 2005
+
+by John Campbell
+
+---
+
+Badanswer.aiml makes use of the Pandorabots new
+<learn> and <eval> tags. 
+
+The version as previously published here cannot
+handle multi-sentence inputs, and  
+breaks badly on them. My experience has been
+that visitors who have used BAD  
+ANSWER seem to want to input multi-sentence
+answers. 
+
+After some thought I've come up with a modified
+version. This makes use of  
+Pandorabots extended tags "response" and
+"request" to capture multi-sentence inputs  
+and responses.  
+
+Once the topic has been set to BADANSWER or
+BADANSWER2, all inputs are  captured 
+and processed. We need to detect whether the
+current input sentence is part  of the 
+corrected answer (whether one sentence or more).
+We do this by checking the  value 
+of the "current bot response" (<response index =
+"1" />) to see if the user is still  
+responding to "OK, what should I have said". If
+so, no processing is done to that  
+sentence.  
+
+We then check the value of the "previous bot
+response" (<response index = "2" />) to  
+see if we have moved on to the next input. If
+so, we can pick up previous input in 
+full,  whether multi-sentence or not, using
+<request index = "1" />. 
+
+
+
+ 
+
+
+If you don't want to ask if the response depends
+on the context, you can just change  
+the line 
+
+
+<li name="badanswer-that" value="*"> 
+
+to 
+
+<li name="badanswer-that" value="nevercomehere"> 
+
+though there are far better ways to do that. 
+
+
+This seems to work fine both in training mode
+and when published.  
+
+I had previously written a series of categories
+for this that worked perfectly in 
+training  but not when published! There's
+something odd about srais in topics that I 
+can't  fathom. If, for example, I change the line  
+
+<li>Yes or No?</li> 
+
+to 
+
+<li>I'll take that as No, then.
+<srai>No</srai></li> 
+
+the bot output is the generic substitution for
+"No", as if the topic was of no effect, 
+but  the learning still happens, so obviously
+the processing has taken place within 
+the topic. 
+
+
+
+John Campbell 
+http://www.jesus.org.uk/bot 
+
+For the multi-sentence handling abilities of
+this extended BADANSWER, we use a rather unusual
+approach to testing the inputs.
+
+First, the conversation:
+
+    Human: hi
+    Sylvie: Hello there. 
+
+    Human:  Who is Rich Wallace
+    Sylvie: I remember faces better than names.
+I would search with Google for Rich Wallace.
+ 
+ 
+    Human: that's not right. try again.
+    Sylvie: Would you like to teach me a new
+answer to " Who is Rich Wallace"? Yes or
+No?
+
+    Human: yes please
+    Sylvie: OK, what should I have said?  
+
+    Human: Rich is a good friend of mine who
+tries to please. He is a famous computer
+scientist.
+    Sylvie: " Rich is a good friend of mine who
+tries to please...."? Does this depend on me
+having just said, " Hello there."?  
+
+    Human: no
+    Sylvie: I'll try to remember to respond, "
+Rich is a good friend of mine who tries to
+please. He is a famous computer scientist."
+when you say, " Who is Rich Wallace"  
+        
+    Human: good
+    Sylvie: All right then.  
+
+    Human: who is rich wallace
+    Sylvie: Rich is a good friend of mine who
+tries to please. He is a famous computer
+scientist.  
+
+This is what we want to achieve. It doesn't
+appear quite like this in the log, as the inputs
+appear sentence by sentence. You can check it
+out by asking Sylvie at
+http://www.jesus.org.uk/bot
+
+And now with my comments:
+
+    Human: hi
+    Sylvie: Hello there. 
+
+Just usual introductory nonsense. The human now
+asks the bot the critical question.
+
+    Human:  Who is Rich Wallace
+    Sylvie: I remember faces better than names.
+I would search with Google for Rich Wallace.
+ 
+
+Human doesn't like the answer.
+ 
+    Human: that's not right. try again. 
+the first sentence srais to BAD ANSWER, and  we
+set the following:
+--        <set name="badanswer-input"><input index="2"
+/></set> -- Who is Rich Wallace
+--         <set name="badanswer-that"><that index="2,1"
+/></set> -- hello there
+--         <set name="badanswer-that-full"><that
+index="2" /></set> -- hello there
+--         <set name="topic">badanswer-prelim</set>
+
+and Sylvie responds:
+    Sylvie: Would you like to teach me a new
+answer to " Who is Rich Wallace"? 
+
+The second sentence ("try again") is unwanted
+and is trapped by the badanswer-prelim topic,
+appending the answer:
+    Sylvie: Yes or No?
+
+Normally this response only appears if the user
+fails to reply "Yes" or "No" to the previous
+question.
+
+    Human: yes please
+
+This matches <pattern>_ _</pattern> in the
+badanswer-prelim topic. This double wildcard
+overrules any other match such as <pattern>_
+PLEASE</pattern> which would otherwise match
+regardless of the topic and confuse the output.
+We could process this separately, but as we only
+want a response of Yes or No, we just take the
+first word. We then change the topic, according
+to whether there is a context to the original
+question. 
+
+    Sylvie: OK, what should I have said?  
+    Human: Rich is a good friend of mine who
+tries to please. He is a famous computer
+scientist.
+
+The two sentences are processed one-by-one. We
+keep track of where we are by looking at the two
+previous bot responses.
+
+The first sentence (Rich is a good friend of
+mine who tries to please) matches:
+-- <pattern>_ _</pattern>
+-- <that>OK WHAT SHOULD I HAVE SAID</that>
+
+and reduces to the first word ("Rich") in an
+attempt to avoid other pattern matching which
+would cause (in this case) "Your polite style is
+very nice" to appear in the output.
+
+This then matches:
+-- <pattern>_</pattern>
+-- <that>OK WHAT SHOULD I HAVE SAID</that>
+and to prompt the user we echo:
+-- "<set name="badanswer-newresp"><input
+index="1" /></set>..."?
+    Sylvie: " Rich is a good friend of mine who
+tries to please...."? 
+ 
+As badanswer-that is not null, we match:
+-- <li name="badanswer-that" value="*">
+and add on:
+    Sylvie: Does this depend on me having just
+said, " Hello there."?  
+and set the topic to BADANSWER. Every input will
+now be matched by the catch all "_" pattern.
+
+The second sentence (He is a famous computer
+scientist) is now processed.
+
+This matches;
+-- <topic name="BADANSWER">
+-- <pattern>_</pattern>
+
+to help with the tests in this section, we set:
+-- <set name="star"><star /></set> -- He is a
+famous computer scientist
+-- <set name="response1"><response index = "1"
+/></set> -- OK WHAT SHOULD I HAVE SAID
+-- <set name="response2"><response index = "2"
+/></set> -- I REMEMBER FACES BETTER THAN NAMES.
+I WOULD SEARCH WITH GOOGLE FOR RICH WALLACE.
+
+This matches the condition:
+-- <li name="response1" value="OK, what should I
+have said"></li>
+which tells us that we are still processing the
+answer to that question, and outputs nothing(!).
+This could continue for several sentences in
+response to one single question, for example,
+"What is the Gettysburg address?".
+
+
+The output for the two sentences taken together,
+therefore still looks like:
+    Sylvie: Does this depend on me having just
+said, " Hello there."?  
+
+
+Human now responds:
+    Human: no
+
+This also matches:
+-- <topic name="BADANSWER">
+-- <pattern>_</pattern>
+
+we set:
+-- <set name="star"><star /></set> -- no
+-- <set name="response1"><response index = "1"
+/></set> -- DOES THIS DEPEND ON ME HAVING JUST
+SAID HELLO THERE
+-- <set name="response2"><response index = "2"
+/></set> -- OK WHAT SHOULD I HAVE SAID
+
+this matches the condition:
+-- <li name="response2" value="OK, what should I
+have said">
+which tells us that we have finished processing
+the responses to that question. We can now set
+the correct answer to the previous request,
+which was a multi-sentence input:
+-- <set name="badanswer-newresp"><request index
+= "1" /></set> --  Rich is a good friend of
+mine. He is a famous computer scientist.
+
+We then meet a separate condition test:
+-- <li name="star" value="no">
+and we are virtually finished, having decided
+that the "that" is not relevant.
+
+
+    Sylvie: I'll try to remember to respond, "
+Rich is a good friend of mine who tries to
+please. He is a famous computer scientist."
+when you say, " who is Rich Wallace"  
+
+And proceed to the <learn> section.
+After which:
+        
+    Human: good
+    Sylvie: All right then.  
+
+    Human: who is rich wallace
+    Sylvie: Rich is a good friend of mine who
+tries to please. He is a famous computer
+scientist.  
+
+Phew.
+
+John
+www.jesus.org.uk/bot
+
+Jesus Fellowship/Jesus Army    "Jesus
+People--Loving People"
+tel: +44 (0)1327 344500              fax: +44
+(0)1327 344521
+email: info@jesus.org.uk            
+http://www.jesus.org.uk

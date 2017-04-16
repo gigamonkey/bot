@@ -1,0 +1,16 @@
+Botmaster Steve Worswick, a.k.a Square Bear, creator of the popular
+Mitsuku bot, has released a couple of cool free games in AIML, an
+Anagram Game and a Slot Machine Game.
+
+Slot machine style game Steve has also written a slot machine style
+game in AIML with a "hold" feature. Make sure your bot doesn't comment
+on repetition though, as it will probably complain after a few
+spins. Type "luckyslots" to begin the game when you have loaded and
+re-published your bot.
+
+http://www.square-bear.co.uk/temp/luckyslots.aiml 
+
+Again, Square Bear says, "Feel free to use it in your bots if you like it." 
+
+His web site is http://www.bearbot.co.uk 
+

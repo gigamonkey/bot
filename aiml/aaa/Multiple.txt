@@ -1,0 +1,74 @@
+Multiple Choice Test
+Dr. Richard S. Wallace
+ALICE A. I. Foundation
+July 8, 2005
+
+This simple Multiple choice test was created to fill a need
+for multiple choice-friendly AIML "template" (not the AIML definition of
+<template>, but in the generic sense) to 
+"get right into quiz questions/diagnostic
+tutoring". In this template the bot needs to lead with a math question
+at the intro, allow for an incorrect answer and then make a correction 
+and lead to another problem.   The teaching experts who use this "template"
+must fill in the blanks/answers  --- they will make the bot's
+language gentle, supportive, "PC", according to state standards
+language, and often show jpegs/slides/be colorful.  
+
+As a multi choice test, it's not quite right, as you only proceed to
+the next question when the get the current one right!  But it serves
+the purpose of training the student the correct answer along each step of
+the way.
+
+Taking the first question QUESTION I as an example, let us consider a few
+of the ways the teacher might edit the category.  First, the question and
+answer could be changed completely.  Or, the number of responses could be
+increased (Yes/No or True/False) or Increased (A.-D., A.-E. etc.).  
+You can also edit the responses to make the replies more helpful or "PC":
+
+<category>
+<pattern>QUESTION I</pattern>
+<template>
+Who is the best robot? <br/>
+A. R2D2.<br/>
+B. ALICE.<br/>
+C. HAL 9000.<br/>
+
+<think>
+    <set name="topic">
+       QUESTION I 
+    </set>
+</think>
+</template>
+</category>
+
+
+<topic name="QUESTION I"> 
+
+<category> 
+<pattern>_</pattern>
+<template>
+<think>
+	<set name="star"><star /></set>
+</think>
+<think><set name="topic">QUESTIONS</set></think>
+<condition>
+<li name="star" value="A">
+    It's okay to guess.  Think harder about what the question is asking you.<br />
+    <srai>QUESTION I</srai>
+</li> 
+<li name="star" value="B">
+    You are correct!  The robot ALICE is the "world's most human computer."  
+    Now let us move on to the next question!<br />
+    <srai>QUESTION II</srai>
+</li>
+<li name="star" value="C">
+    Not quite.  Remember, HAL 9000 is a fictional robot, not a real robot.  Try again!<br />
+    <srai>QUESTION I</srai> </li>
+<li>
+	Please answer the quiz questions with just A, B or C. Try again!<br />
+	<srai>QUESTION I</srai>
+</li> 
+</condition>
+</template> </category> 
+
+</topic> 

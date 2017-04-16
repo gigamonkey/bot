@@ -1,0 +1,51 @@
+A Topic Stack in AIML
+Dr. Rich Wallace
+ALICE A. I. Foundation
+July, 2005
+
+The concept of a stack is familiar to computer scientists but may be unfamilar
+to those most interested in learning AIML.  There are many applications
+for software stacks, but in this instance we are interested in creating a
+stack of topics.  The purpose is to help create the illusion that the robot
+can remember a subject that was under discussion previously, or even better,
+a whole series of topics.  The basic idea is that every once in a while the
+bot will push a topic down its stack of memories, and then later on pop a 
+topic off the stack and say something clever like, "Does this have anything
+to do with XYZ?", recalling a topic XYZ that was followed by another topic,
+ABC, and then another, DEF, and then perhaps still another, before the
+robot cleared the stack of those topics and returned back to the earlier
+subject of XYZ.  Another name for such a conversational trick is a 
+"contination".  
+
+The purpose of this AIML code is to implement the stack of topics.
+Normally in computer science a stack consists of an infinite number of
+elements, at least theoretically.  But for practical purposes a chat
+bot only needs to keep track of a small number of levels of
+conversational topic before the effect becomes absurd.  Also AIML is
+not designed to be a general purpose programming language, so we don't
+try very hard to implement the most general solution.  Instead, we
+concentrate on the problem at hand and implement a finite stack.
+
+The stack consists of eight elements named the top, second, third, and
+so on up to the seventh and last.  Each time a new element is pushed
+onto the stack, it occupies the first element.  The contents of the
+second element occupy the third, the third the fourth, and so on.  Whatever
+was in the last element is dropped from the stack.  
+
+The stack elements are implemented as AIML predicates.  Thus the
+predicate associated with <get name="top"/> represents the first element
+and the predicate associated with <set name="second"> represents the
+next element.  Most of the template side AIML associated with the
+categories with the patterns PUSH * and POPOM *, uses <set> and <get>
+to shift these predicate values around.
+
+The return value of the category with the pattern POP depends on the
+contents of the first or top stack element.  This AIML set assumes a global
+default predicate value of OM.  Thus, if the predicate "top" is set to
+OM, nothing has been pushed onto the stack.  As a default in that case, we use
+the category with the pattern POPOM OM to reach the category RANDOM TOPIC.
+
+Assuming the stack contained some values, the POPOM * category functions to
+return the top value and shift the remaining values up the stack.  A utility
+category, with the pattern SHOW STACK, exists to display all the values
+currently stored on the stack.

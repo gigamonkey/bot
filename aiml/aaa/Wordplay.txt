@@ -1,0 +1,22 @@
+Botmaster Steve Worswick, a.k.a Square Bear, creator of the popular
+Mitsuku bot, has released a couple of cool free games in AIML, an
+Anagram Game and a Slot Machine Game.
+
+An anagram game for AIML with scoring It gives the user a 9 letter
+jumbled up word and the user has to guess the correct word. They get
+one point for a correct answer. Say WORDPLAY to the bot to start the
+game.
+
+Square Bear says he chose 9 letter words for 2 reasons: 1) To make the
+game reasonably difficult.  2) To stop duplicate answers. If he had
+chosen four letter words for example, there could be many possible
+answers. eg. Anagram is PTSO. The answer could be STOP, TOPS, SPOT etc
+
+Square Bear says, "Feel free to use it in your own bots if you
+wish. Naturally, you can add your own words. Be careful about
+including words like 'favourite/favorite' , 'organize/organise' as
+people from different countries will spell them in different
+ways. Just add wordplay.aiml to your bot and re-publish to include my
+game.
+
+http://www.square-bear.co.uk/temp/wordplay.aiml 
