@@ -79,11 +79,11 @@
 
 (defun add-rule (conversation pattern template topic that)
   (learn (brain (bot conversation))
-	 `(,pattern 
-	   :template ,template
-	   ,@(if topic (list :topic topic))
-	   ,@(if that (list :that that)))))
-	 
+         `(,pattern
+           :template ,template
+           ,@(if topic (list :topic topic))
+           ,@(if that (list :that that)))))
+
 (defgeneric learn (brain rule))
 
 (defmethod learn ((brain brain) rule)
@@ -95,8 +95,8 @@
   (with-open-file (out (new-rules-file brain) :direction :output :if-exists :append :if-does-not-exist :create)
     (with-standard-io-syntax
       (let ((*print-case* :downcase)
-	    (*package* #.*package*))
-	(print rule out)))))
+            (*package* #.*package*))
+        (print rule out)))))
 
 
 
@@ -120,11 +120,11 @@
   (push input (inputs conversation))
   (loop for sentence in (split-sentences (normalize-input input))  do
        (let ((response (process conversation sentence)))
-	 (cond
-	   (response
-	    (push response (thats conversation))
-	    (funcall responder response))
-	   (t (funcall responder "Sorry, I don't understand."))))))
+         (cond
+           (response
+            (push response (thats conversation))
+            (funcall responder response))
+           (t (funcall responder "Sorry, I don't understand."))))))
 
 (defun quit-conversation (goodbye)
   (throw 'quit-conversation goodbye))
@@ -139,36 +139,36 @@
   (with-slots (topic variables bot) conversation
     (with-slots (matcher) (brain bot)
       (let ((input-path (make-input-path sentence conversation)))
-	(multiple-value-bind (match rule stars) (funcall matcher input-path)
-	  (and match (funcall rule conversation stars)))))))
+        (multiple-value-bind (match rule stars) (funcall matcher input-path)
+          (and match (funcall rule conversation stars)))))))
 
 (defun make-input-path (sentence conversation)
   (with-slots (thats topic) conversation
-    (make-match-path 
+    (make-match-path
      (copy-list sentence)
      (if thats (first (last (split-sentences (normalize-input (first thats))))) nil)
      (copy-list topic))))
 
 (defun make-match-path (pattern that topic)
-  (nconc 
+  (nconc
    pattern
    (cons 'that (or that (list "*")))
    (cons 'topic (or topic (list "*")))))
 
 ;;; Matchers -- compile the list of patterns down to a tree of
-;;; closures that match a given input and return the compiled template 
+;;; closures that match a given input and return the compiled template
 ;;; function so it can be invoked.
 
 (defun make-wildcard-matcher (continuation)
   (lambda (input)
     (loop for tail in (cons nil (nreverse (maplist #'identity input))) do
-	 (when *verbose* (format t "~&wildcard matcher: continuing with ~s" tail))
-	 (multiple-value-bind (match value wildcards) (funcall continuation tail)
-	   (when match
-	     (let ((matched-tokens (ldiff input tail)))
-	       (when *verbose* 
-		 (format t "~&Matched wildcard with matched-tokens: ~s" matched-tokens))
-	       (return (values match value (cons matched-tokens wildcards)))))))))
+         (when *verbose* (format t "~&wildcard matcher: continuing with ~s" tail))
+         (multiple-value-bind (match value wildcards) (funcall continuation tail)
+           (when match
+             (let ((matched-tokens (ldiff input tail)))
+               (when *verbose*
+                 (format t "~&Matched wildcard with matched-tokens: ~s" matched-tokens))
+               (return (values match value (cons matched-tokens wildcards)))))))))
 
 (defun make-marker-matcher (marker continuation)
   (lambda (input)
@@ -176,9 +176,9 @@
     (when (eql marker (first input))
       (when *verbose* (format t "~&Matched marker: ~a" marker))
       (multiple-value-bind (match value wildcards) (funcall continuation (rest input))
-	(when *verbose* "After marker new wildcards: ~s" wildcards)
-	(when match
-	  (values match value (cons marker wildcards)))))))
+        (when *verbose* "After marker new wildcards: ~s" wildcards)
+        (when match
+          (values match value (cons marker wildcards)))))))
 
 (defun make-token-matcher (token continuation)
   (cond
@@ -198,8 +198,8 @@ tokens."
     (setf input (member-if-not #'whitespace-or-special-token-p input))
     (let ((next (first input)))
       (when (and (stringp next) (string-equal token next))
-	(when *verbose* (format t "~&Matched token: ~a with rest: ~a" token (rest input)))
-	(funcall continuation (rest input))))))
+        (when *verbose* (format t "~&Matched token: ~a with rest: ~a" token (rest input)))
+        (funcall continuation (rest input))))))
 
 (defun make-special-token-matcher (token continuation)
   "For explicitly matching special punctuation tokens, skipping
@@ -208,11 +208,11 @@ whitespace tokens."
     (setf input (member-if-not #'whitespace-token-p input))
     (let ((next (first input)))
       (when (and (stringp next) (string-equal token next))
-	(when *verbose* (format t "~&Matched special token: ~a with rest: ~a" token (rest input)))
-	(funcall continuation (rest input))))))
+        (when *verbose* (format t "~&Matched special token: ~a with rest: ~a" token (rest input)))
+        (funcall continuation (rest input))))))
 
 (defun make-end-matcher (value)
-  (lambda (input) 
+  (lambda (input)
     (when *verbose* (format t "~&end-matcher input: ~s" input))
     (when (null (member-if-not #'whitespace-or-special-token-p input))
       (when *verbose* (format t "~&Matched end."))
@@ -221,16 +221,16 @@ whitespace tokens."
 (defun make-or-matcher (matchers)
   (lambda (input)
     (loop for m in matchers do
-	 (multiple-value-bind (match value wildcards) (funcall m input)
-	   (if match (return (values match value wildcards)))))))
+         (multiple-value-bind (match value wildcards) (funcall m input)
+           (if match (return (values match value wildcards)))))))
 
 (defmacro multiple-value-or (&body forms)
   (if forms
       (with-gensyms (results)
-	`(let ((,results (multiple-value-list ,(first forms))))
-	   (if (first ,results)
-	       (values-list ,results)
-	       (multiple-value-or ,@(rest forms)))))
+        `(let ((,results (multiple-value-list ,(first forms))))
+           (if (first ,results)
+               (values-list ,results)
+               (multiple-value-or ,@(rest forms)))))
       nil))
 
 (defun make-contraction-matcher (token continuation)
@@ -242,7 +242,7 @@ if the next tokens on the input are either 'isn't' or 'is' followed by
 maximally general."
   (flet ((msm (expansion) (make-sequence-matcher expansion continuation)))
     (let ((token-matcher (make-normal-token-matcher token continuation))
-	  (expansion-matchers (mapcar #'msm (contraction-expansions token))))
+          (expansion-matchers (mapcar #'msm (contraction-expansions token))))
       (make-or-matcher (list* token-matcher expansion-matchers)))))
 
 (defun make-sequence-matcher (sequence continuation)
@@ -260,26 +260,26 @@ patterns that can be passed to compile-patterns."
 (defun normalize-rules (rules)
   "Normalizes the patterns in the rules and converts them into a
 simple list (with no keywords)."
-  (loop for rule in rules collect 
+  (loop for rule in rules collect
        (destructuring-bind (pattern &key that topic template) rule
-	 (list 
-	  (normalize-pattern pattern)
-	  (and that (normalize-pattern that))
-	  (and topic (normalize-pattern topic))
-	  template))))
+         (list
+          (normalize-pattern pattern)
+          (and that (normalize-pattern that))
+          (and topic (normalize-pattern topic))
+          template))))
 
 (defun compile-normalized-rules (rules)
   "Compile a list of (pattern that topic template) lists into a list
 of patterns that can be passed to compile-patterns. Each pattern is an
 improper list with the final CDR being the compiled template."
-  (loop for rule in rules collect 
+  (loop for rule in rules collect
        (destructuring-bind (pattern that topic template) rule
-	 (nconc
-	  (make-match-path pattern that topic)
-	  (let ((compiled-template (compile-template template)))
-	    (lambda (conversation stars)
-	      (when *verbose* (format t "~&Matched pattern: ~s~&That: ~s~&Topic: ~s~&Stars: ~s" pattern that topic stars))
-	      (funcall compiled-template conversation stars)))))))
+         (nconc
+          (make-match-path pattern that topic)
+          (let ((compiled-template (compile-template template)))
+            (lambda (conversation stars)
+              (when *verbose* (format t "~&Matched pattern: ~s~&That: ~s~&Topic: ~s~&Stars: ~s" pattern that topic stars))
+              (funcall compiled-template conversation stars)))))))
 
 (defun compile-rules-file (file)
   (compile-patterns (compile-rules (file->list file))))
@@ -295,8 +295,8 @@ improper list with the final CDR being the compiled template."
 
 (defun compile-tree (tree)
   (flet ((value-p (x) (atom x))
-	 (wildcard-p (x) (or (string-equal (car x) "_") (string-equal (car x) "*")))
-	 (marker-p (x) (or (eql (car x) 'that) (eql (car x) 'topic))))
+         (wildcard-p (x) (or (string-equal (car x) "_") (string-equal (car x) "*")))
+         (marker-p (x) (or (eql (car x) 'that) (eql (car x) 'topic))))
     (cond
       ((value-p tree) (make-end-matcher tree))
       ((wildcard-p tree) (make-wildcard-matcher (compile-trees (cdr tree))))
@@ -308,10 +308,10 @@ improper list with the final CDR being the compiled template."
   (with-output-to-file (out (make-pathname :name (format nil "sorted-~a" (pathname-name file)) :defaults file))
     (with-standard-io-syntax
       (let ((*print-case* :downcase)
-	    (*package* #.*package*))
-	(format out "~{~&~s~}" (mapcar #'(lambda (x)
-					   (setf (first x) (string-downcase (first x)))
-					   x) (sort (file->list file) #'rule<)))))))
+            (*package* #.*package*))
+        (format out "~{~&~s~}" (mapcar #'(lambda (x)
+                                           (setf (first x) (string-downcase (first x)))
+                                           x) (sort (file->list file) #'rule<)))))))
 
 (defun extract-templates (file)
   (mapcar #'(lambda (x) (getf (rest x) :template))  (file->list file)))
@@ -327,33 +327,33 @@ improper list with the final CDR being the compiled template."
       (setf that-2 (normalize-pattern that-2))
 
       (cond
-	((pattern< topic-1 topic-2) t)
-	((pattern< topic-2 topic-1) nil)
+        ((pattern< topic-1 topic-2) t)
+        ((pattern< topic-2 topic-1) nil)
 
-	((pattern< that-1 that-2) t)
-	((pattern< that-2 that-1) nil)
+        ((pattern< that-1 that-2) t)
+        ((pattern< that-2 that-1) nil)
 
-	((template< template-1 template-2) t)
-	((template< template-2 template-1) nil)
+        ((template< template-1 template-2) t)
+        ((template< template-2 template-1) nil)
 
-	((pattern< pattern-1 pattern-2) t)
-	((pattern< pattern-2 pattern-1) nil)
-	
-	(t (error "Identical rules: ~s and ~s" rule-1 rule-2))))))
+        ((pattern< pattern-1 pattern-2) t)
+        ((pattern< pattern-2 pattern-1) nil)
+
+        (t (error "Identical rules: ~s and ~s" rule-1 rule-2))))))
 
 (defun template< (template-1 template-2)
   (flet ((process-star-p (template)
-	   (equal template '(process (star))))
-	 (process-string-p (template)
-	   (and (consp template)
-		(eql (car template) 'process)
-		(stringp (cadr template))
-		(null (cddr template))))
-	 (process-something-p (template)
-	   (and (consp template) (eql (car template) 'process))))
+           (equal template '(process (star))))
+         (process-string-p (template)
+           (and (consp template)
+                (eql (car template) 'process)
+                (stringp (cadr template))
+                (null (cddr template))))
+         (process-something-p (template)
+           (and (consp template) (eql (car template) 'process))))
 
 
-    
+
     (cond
       ((and (process-star-p template-1) (not (process-star-p template-2))) t)
       ((and (process-star-p template-2) (not (process-star-p template-1))) nil)
@@ -363,9 +363,9 @@ improper list with the final CDR being the compiled template."
 
       ((and (process-something-p template-1) (not (process-something-p template-2))) t)
       ((and (process-something-p template-2) (not (process-something-p template-1))) nil)
-      
+
       (t nil))))
-	
+
 (defun pattern< (pattern-1 pattern-2)
   (cond
     ;; Hit the end of both patterns at the same time so p1 = p2 => not
@@ -381,11 +381,11 @@ improper list with the final CDR being the compiled template."
     ((atom pattern-2) t)
     (t
      (let ((token-1 (car pattern-1))
-	   (token-2 (car pattern-2)))
+           (token-2 (car pattern-2)))
        (cond
-	 ((token< token-1 token-2) t)
-	 ((token< token-2 token-1) nil)
-	 (t (pattern< (cdr pattern-1) (cdr pattern-2))))))))
+         ((token< token-1 token-2) t)
+         ((token< token-2 token-1) nil)
+         (t (pattern< (cdr pattern-1) (cdr pattern-2))))))))
 
 (defun token< (token-1 token-2)
   (cond
@@ -403,13 +403,13 @@ improper list with the final CDR being the compiled template."
        (cons (car rules) (rules->trees (cdr rules))))
       (t
        (let* ((start (caar rules))
-	      (rest (rest rules))
-	      (next (or (position start rest :test (complement #'eql) :key #'car) (length rest)))
-	      (remaining (nthcdr next rest))
-	      (group (ldiff rules remaining)))
-	 (cons
-	  (cons start (rules->trees (mapcar #'cdr group)))
-	  (rules->trees remaining)))))))
+              (rest (rest rules))
+              (next (or (position start rest :test (complement #'eql) :key #'car) (length rest)))
+              (remaining (nthcdr next rest))
+              (group (ldiff rules remaining)))
+         (cons
+          (cons start (rules->trees (mapcar #'cdr group)))
+          (rules->trees remaining)))))))
 
 (defun list-to-tree (list)
   (cond
@@ -430,7 +430,7 @@ conversation and list of star matches and returns a string of text."
   (cond
     ((null template) *null-template*)
     ((or (not (consp template))
-	 (and (consp template) (symbolp (car template))))
+         (and (consp template) (symbolp (car template))))
      (compile-template-element template *null-template*))
     (t
      (compile-template-element
@@ -449,10 +449,10 @@ conversation and list of star matches and returns a string of text."
   (compile-operator (first element) (rest element) continuation))
 
 (defun compile-literal (literal continuation)
-  (lambda (conversation stars)  
-    (concatenate 'string 
-		 literal
-		 (funcall continuation conversation stars))))
+  (lambda (conversation stars)
+    (concatenate 'string
+                 literal
+                 (funcall continuation conversation stars))))
 
 
 (defgeneric compile-operator (operator arguments continuation))
@@ -462,7 +462,7 @@ conversation and list of star matches and returns a string of text."
 (defmethod compile-operator ((operator (eql 'process)) args continuation)
   (let ((args-thunk (compile-template args)))
     (lambda (conversation stars)
-      (concatenate 
+      (concatenate
        'string
        (process conversation (normalize-input (funcall args-thunk conversation stars)))
        (funcall continuation conversation stars)))))
@@ -479,19 +479,19 @@ conversation and list of star matches and returns a string of text."
   (destructuring-bind (&optional (idx 0)) args
     (lambda (conversation stars)
       (let ((pattern-stars (ldiff stars (member 'that stars))))
-	(concatenate
-	 'string
-	 (format nil "~{~a~}" (trim-whitespace-tokens (nth idx pattern-stars)))
-	 (funcall continuation conversation stars))))))
+        (concatenate
+         'string
+         (format nil "~{~a~}" (trim-whitespace-tokens (nth idx pattern-stars)))
+         (funcall continuation conversation stars))))))
 
 (defmethod compile-operator ((operator (eql 'thatstar)) args continuation)
   (destructuring-bind (&optional (idx 0)) args
     (lambda (conversation stars)
       (let ((that-stars (ldiff (cdr (member 'that stars)) (member 'topic stars))))
-	(concatenate
-	 'string
-	 (format nil "~(~{~a~^ ~}~)" (trim-whitespace-tokens (nth idx that-stars)))
-	 (funcall continuation conversation stars))))))
+        (concatenate
+         'string
+         (format nil "~(~{~a~^ ~}~)" (trim-whitespace-tokens (nth idx that-stars)))
+         (funcall continuation conversation stars))))))
 
 (defmethod compile-operator ((operator (eql 'that)) args continuation)
   ;; FIXME 2010-02-01 <peter@greyhound> -- need to implement sentence-idx
@@ -517,9 +517,9 @@ conversation and list of star matches and returns a string of text."
   (destructuring-bind (name) args
     (lambda (conversation stars)
       (when *verbose*
-	(format t "~&Getting ~a from ~a" name (variables conversation)))
+        (format t "~&Getting ~a from ~a" name (variables conversation)))
       (concatenate
-       'string 
+       'string
        (princ-to-string (gethash name (variables conversation)))
        (funcall continuation conversation stars)))))
 
@@ -527,35 +527,35 @@ conversation and list of star matches and returns a string of text."
   (destructuring-bind (name value-template) args
     (let ((value-thunk (compile-template value-template)))
       (lambda (conversation stars)
-	(setf (gethash name (variables conversation)) (funcall value-thunk conversation stars))
-	(when *verbose*
-	  (format t "~&Setting ~a in ~a" name (variables conversation)))
-	(concatenate
-	 'string
-	 ;(if (stringp value-template) (string-upcase value-template)
-	     (gethash name (variables conversation))
-	     ;)
-	 (funcall continuation conversation stars))))))
+        (setf (gethash name (variables conversation)) (funcall value-thunk conversation stars))
+        (when *verbose*
+          (format t "~&Setting ~a in ~a" name (variables conversation)))
+        (concatenate
+         'string
+         ;(if (stringp value-template) (string-upcase value-template)
+             (gethash name (variables conversation))
+             ;)
+         (funcall continuation conversation stars))))))
 
 (defmethod compile-operator ((operator (eql 'silent-set)) args continuation)
   (destructuring-bind (name value-template) args
     (let ((value-thunk (compile-template value-template)))
       (lambda (conversation stars)
-	(setf (gethash name (variables conversation)) (funcall value-thunk conversation stars))
-	(funcall continuation conversation stars)))))
+        (setf (gethash name (variables conversation)) (funcall value-thunk conversation stars))
+        (funcall continuation conversation stars)))))
 
 (defmethod compile-operator ((operator (eql 'bot)) args continuation)
   (destructuring-bind (name) args
     (lambda (conversation stars)
       (concatenate
-       'string 
+       'string
        (princ-to-string (gethash name (bot-variables conversation)))
        (funcall continuation conversation stars)))))
 
 (defmethod compile-operator ((operator (eql 'get-topic)) args continuation)
   (lambda (conversation stars)
     (concatenate
-     'string 
+     'string
      (princ-to-string (topic conversation))
      (funcall continuation conversation stars))))
 
@@ -564,7 +564,7 @@ conversation and list of star matches and returns a string of text."
     (lambda (conversation stars)
       (setf (topic conversation) (normalize-input (funcall value-thunk conversation stars)))
       (when *verbose*
-	(format t "Set topic to: ~s" (topic conversation)))
+        (format t "Set topic to: ~s" (topic conversation)))
       (funcall continuation conversation stars))))
 
 
@@ -578,27 +578,27 @@ conversation and list of star matches and returns a string of text."
 (defmethod compile-operator ((operator (eql 'add-rule)) args continuation)
   (destructuring-bind (pattern template &key topic that) args
     (let ((pattern-thunk (compile-template pattern))
-	  (template-thunk (compile-template template))
-	  (topic-thunk (and topic (compile-template topic)))
-	  (that-thunk (and that (compile-template that))))
+          (template-thunk (compile-template template))
+          (topic-thunk (and topic (compile-template topic)))
+          (that-thunk (and that (compile-template that))))
       (lambda  (conversation stars)
-	(add-rule conversation 
-		  (funcall pattern-thunk conversation stars)
-		  (funcall template-thunk conversation stars)
-		  (and topic-thunk (funcall topic-thunk conversation stars))
-		  (and that-thunk (funcall that-thunk conversation stars)))
-	(funcall continuation conversation stars)))))
+        (add-rule conversation
+                  (funcall pattern-thunk conversation stars)
+                  (funcall template-thunk conversation stars)
+                  (and topic-thunk (funcall topic-thunk conversation stars))
+                  (and that-thunk (funcall that-thunk conversation stars)))
+        (funcall continuation conversation stars)))))
 
 (defmethod compile-operator ((operator (eql 'function)) args continuation)
     (let ((name (first args))
-	  (arg-thunks (mapcar #'compile-value-thunk (rest args))))
+          (arg-thunks (mapcar #'compile-value-thunk (rest args))))
       (lambda (conversation stars)
-	(concatenate
-	 'string
-	 (apply (gethash name (functions conversation))
-		(mapcar #'(lambda (x) (funcall x conversation stars)) arg-thunks))
-	 (funcall continuation conversation stars)))))
-	
+        (concatenate
+         'string
+         (apply (gethash name (functions conversation))
+                (mapcar #'(lambda (x) (funcall x conversation stars)) arg-thunks))
+         (funcall continuation conversation stars)))))
+
 ;;; Text formatting
 
 (defmethod compile-operator ((operator (eql 'uppercase)) args continuation)
@@ -629,35 +629,35 @@ conversation and list of star matches and returns a string of text."
   (let ((value-thunk (compile-template args)))
     (lambda (conversation stars)
       (let ((text (funcall value-thunk conversation stars)))
-	(concatenate
-	 'string
-	 (string-upcase (string-downcase text) :end 1)
-	 (funcall continuation conversation stars))))))
+        (concatenate
+         'string
+         (string-upcase (string-downcase text) :end 1)
+         (funcall continuation conversation stars))))))
 
 
 (defmethod compile-operator ((operator (eql 'person)) args continuation)
   (let ((args-thunk (compile-template args))
-	(substitutions '((:i . :you) (:me . :you) (:we . :you) (:us . :you) (:you . :me))))
+        (substitutions '((:i . :you) (:me . :you) (:we . :you) (:us . :you) (:you . :me))))
     (lambda (conversation stars)
-      (concatenate 
+      (concatenate
        'string
        (format nil "~(~{~a~^ ~}~)" (sublis substitutions (normalize-input (funcall args-thunk conversation stars))))
        (funcall continuation conversation stars)))))
 
 (defmethod compile-operator ((operator (eql 'person2)) args continuation)
   (let ((args-thunk (compile-template args))
-	(substitutions '((:i . :he) (:me . :him) (:we . :they) (:us . :them) (:he . :i) (:him . :me) (:she . :i) (:her . :me) (:they . :we) (:them . :us))))
+        (substitutions '((:i . :he) (:me . :him) (:we . :they) (:us . :them) (:he . :i) (:him . :me) (:she . :i) (:her . :me) (:they . :we) (:them . :us))))
     (lambda (conversation stars)
-      (concatenate 
+      (concatenate
        'string
        (format nil "~(~{~a~^ ~}~)" (sublis substitutions (normalize-input (funcall args-thunk conversation stars))))
        (funcall continuation conversation stars)))))
 
 (defmethod compile-operator ((operator (eql 'gender)) args continuation)
   (let ((args-thunk (compile-template args))
-	(substitutions '((:he . :she) (:she . :he) (:his . :hers) (:hers . :his) (:him . :her) (:her . :him))))
+        (substitutions '((:he . :she) (:she . :he) (:his . :hers) (:hers . :his) (:him . :her) (:her . :him))))
     (lambda (conversation stars)
-      (concatenate 
+      (concatenate
        'string
        (format nil "~(~{~a~^ ~}~)" (sublis substitutions (normalize-input (funcall args-thunk conversation stars))))
        (funcall continuation conversation stars)))))
@@ -683,31 +683,31 @@ conversation and list of star matches and returns a string of text."
   (destructuring-bind (variable value) args
     (let ((value-thunk (compile-template value)))
       (lambda (conversation stars)
-	(string-equal
-	 (gethash variable (variables conversation))
-	 (funcall value-thunk conversation stars))))))
+        (string-equal
+         (gethash variable (variables conversation))
+         (funcall value-thunk conversation stars))))))
 
 (defmethod compile-test-expression ((op (eql '!=)) args)
   (destructuring-bind (variable value) args
     (let ((value-thunk (compile-template value)))
       (lambda (conversation stars)
-	(string-not-equal
-	 (gethash variable (variables conversation))
-	 (funcall value-thunk conversation stars))))))
+        (string-not-equal
+         (gethash variable (variables conversation))
+         (funcall value-thunk conversation stars))))))
 
 (defmethod compile-test-expression ((op (eql 'match)) args)
   (destructuring-bind (value pattern) args
     (let ((value-thunk (compile-value-thunk value))
-	  (pattern-thunk (compile-simple-pattern pattern)))
+          (pattern-thunk (compile-simple-pattern pattern)))
       (lambda (conversation stars)
-	(let ((value (funcall value-thunk conversation stars)))
-	  (funcall pattern-thunk (normalize-input value)))))))
+        (let ((value (funcall value-thunk conversation stars)))
+          (funcall pattern-thunk (normalize-input value)))))))
 
 (defmethod compile-test-expression (op args)
   (let ((arg-thunks (mapcar #'compile-value-thunk args)))
     (lambda (conversation stars)
       (apply (gethash op (functions conversation))
-	     (mapcar #'(lambda (x) (funcall x conversation stars)) arg-thunks)))))
+             (mapcar #'(lambda (x) (funcall x conversation stars)) arg-thunks)))))
 
 (defun compile-value-thunk (value)
   (etypecase value
@@ -717,15 +717,15 @@ conversation and list of star matches and returns a string of text."
 (defmethod compile-operator ((operator (eql 'if)) args continuation)
   (destructuring-bind (test then &optional else) args
     (let ((test-thunk (compile-test-thunk test))
-	  (then-thunk (compile-template then))
-	  (else-thunk (compile-template else)))
+          (then-thunk (compile-template then))
+          (else-thunk (compile-template else)))
       (lambda (conversation stars)
-	(concatenate
-	 'string
-	 (funcall 
-	  (if (funcall test-thunk conversation stars) then-thunk else-thunk)
-	  conversation stars)
-	 (funcall continuation conversation stars))))))
+        (concatenate
+         'string
+         (funcall
+          (if (funcall test-thunk conversation stars) then-thunk else-thunk)
+          conversation stars)
+         (funcall continuation conversation stars))))))
 
 (defmethod compile-operator ((operator (eql 'when)) args continuation)
   (compile-template-element `(if ,(first args) ,(rest args) nil) continuation))
@@ -744,25 +744,25 @@ conversation and list of star matches and returns a string of text."
 (defmethod compile-operator ((operator (eql 'case-match)) args continuation)
   (destructuring-bind (variable &rest clauses) args
     (let ((value-thunk (compile-variable-access variable))
-	  (clause-thunks (mapcar #'compile-case-match-clause clauses)))
+          (clause-thunks (mapcar #'compile-case-match-clause clauses)))
       (lambda (conversation stars)
-	(concatenate
-	 'string
-	 (let ((value (funcall value-thunk conversation stars)))
-	   (or (some (lambda (x) (funcall x value conversation stars)) clause-thunks) "")))
-	(funcall continuation conversation stars)))))
+        (concatenate
+         'string
+         (let ((value (funcall value-thunk conversation stars)))
+           (or (some (lambda (x) (funcall x value conversation stars)) clause-thunks) "")))
+        (funcall continuation conversation stars)))))
 
 (defun compile-case-match-clause (clause)
   (destructuring-bind (pattern template) clause
     (let ((pattern-matcher (compile-simple-pattern pattern))
-	  (template-thunk (compile-template template)))
+          (template-thunk (compile-template template)))
       (lambda (value conversation stars)
-	(when (funcall pattern-matcher (normalize-input value))
-	  (funcall template-thunk conversation stars))))))
+        (when (funcall pattern-matcher (normalize-input value))
+          (funcall template-thunk conversation stars))))))
 
 (defmethod compile-operator ((operator (eql 'random)) args continuation)
   (let ((n (length args))
-	(value-thunks (mapcar #'compile-template args)))
+        (value-thunks (mapcar #'compile-template args)))
     (lambda (conversation stars)
       (concatenate
        'string
@@ -822,17 +822,17 @@ conversation and list of star matches and returns a string of text."
 (defun have-conversation (bot)
   (let ((conversation (make-instance 'conversation :bot bot)))
     (add-function conversation 'common-lisp-symbol-p)
-    (add-function conversation 'common-lisp-function-p 
-		  (lambda (string)
-		    (and (common-lisp-symbol-p string)
-			 (fboundp (intern (string-upcase string) :cl)))))
+    (add-function conversation 'common-lisp-function-p
+                  (lambda (string)
+                    (and (common-lisp-symbol-p string)
+                         (fboundp (intern (string-upcase string) :cl)))))
 
     (add-rule conversation "QUIT" '(quit) nil nil)
     (add-rule conversation "Q" '(quit) nil nil)
-    
+
     (catch 'quit-conversation
       (loop for input = (get-response) do
-	   (let ((responses ()))
-	     (conversational-response conversation input (lambda (response) (push response responses)))
-	     (format t "~&~{~a~^ ~}" (delete-duplicates (nreverse responses) :test #'string=)))))
+           (let ((responses ()))
+             (conversational-response conversation input (lambda (response) (push response responses)))
+             (format t "~&~{~a~^ ~}" (delete-duplicates (nreverse responses) :test #'string=)))))
     nil))
